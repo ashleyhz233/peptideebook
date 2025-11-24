@@ -1,439 +1,539 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Peptides 101 (Educational • Interactive)</title>
-  <meta name="description" content="A beautifully designed, educational peptide eBook with TOC, notes, and print-to-PDF. No medical advice." />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>Peptide Prep — Educational eBook (Bubbly)</title>
+  <meta name="description" content="A colorful, bubbly, animated educational eBook with chapters, notes, favorites, and print-to-PDF. Not medical advice."/>
+  <meta name="theme-color" content="#FF8AB0"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts: Poppins (display), Nunito (body) -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0a0a0f;
-      --card:rgba(255,255,255,0.06);
-      --card-strong:rgba(255,255,255,0.12);
-      --border:rgba(255,255,255,0.14);
-      --primary:#ff3cac; --secondary:#784ba0; --tertiary:#2b86c5;
-      --text:#eaeaf0;
+      /* Peachy pastel palette */
+      --ink:#262629; --ink-soft:#5f6372;
+      --bg1:#FFF7FB; --bg2:#FFF1E8; --bg3:#F5F1FF;
+      --card:#ffffff; --line:rgba(0,0,0,.06);
+      --pink:#FF7AB6; --apricot:#FFA74A; --lilac:#B083FF; --mint:#6ED9C3; --sun:#FFD36E;
+      --shadow:0 14px 40px rgba(0,0,0,.10);
+      --radius:20px;
+      --ring:0 0 0 7px rgba(255,122,182,.15);
+      --grad-1:linear-gradient(135deg,var(--pink),var(--apricot));
+      --grad-2:linear-gradient(135deg,var(--lilac),var(--mint));
+      --grad-soft:linear-gradient(180deg,#fff,rgba(255,122,182,.08));
     }
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}
-    .display{font-family:Fraunces,serif}
-    a{color:#fff;text-decoration:none}
-    a:hover{text-decoration:underline}
-    /* Aurora background */
-    .aurora{position:fixed;inset:-15%;z-index:-1;filter:blur(40px) saturate(130%);pointer-events:none}
-    .aurora .layer{position:absolute;inset:-20%;
-      background:
-        radial-gradient(35% 40% at 20% 30%, rgba(255,60,172,.35), rgba(255,60,172,0) 60%),
-        radial-gradient(45% 35% at 80% 20%, rgba(76,201,240,.35), rgba(76,201,240,0) 60%),
-        radial-gradient(30% 40% at 30% 80%, rgba(72,224,184,.30), rgba(72,224,184,0) 60%),
-        radial-gradient(40% 30% at 90% 80%, rgba(255,214,102,.25), rgba(255,214,102,0) 60%);
-      animation: floaty 28s ease-in-out infinite alternate;mix-blend-mode:screen}
-    .aurora .layer:nth-child(2){animation-duration:36s;transform:rotate(6deg)}
-    .aurora .layer:nth-child(3){animation-duration:46s;transform:rotate(-4deg)}
-    @keyframes floaty{0%{transform:translate3d(-3%,-2%,0) scale(1)}50%{transform:translate3d(3%,2%,0) scale(1.03)}100%{transform:translate3d(-2%,3%,0) scale(.98)}}
-    @media (prefers-reduced-motion: reduce){.aurora .layer{animation:none}}
-    /* Glass cards */
-    .glass{background:var(--card);backdrop-filter:blur(14px) saturate(140%);border:1px solid var(--border);border-radius:20px}
-    .glass-strong{background:var(--card-strong);backdrop-filter:blur(18px) saturate(180%);border:1px solid var(--border);border-radius:20px}
-    .shadow{box-shadow:0 10px 35px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04)}
+    @media (prefers-color-scheme: dark) {
+      :root{
+        --ink:#f7f7fb; --ink-soft:#cfd2e0;
+        --card:#1a1a22; --line:rgba(255,255,255,.10);
+        --shadow:0 14px 40px rgba(0,0,0,.35);
+        --grad-soft:linear-gradient(180deg,#1a1a22,rgba(255,122,182,.06));
+      }
+      body{background:#12121a !important;}
+    }
+
+    html,body{margin:0;padding:0;color:var(--ink);background:
+      radial-gradient(1200px 800px at 10% -10%, var(--bg3), transparent 60%),
+      radial-gradient(1200px 800px at 90% 0%, var(--bg2), transparent 55%),
+      radial-gradient(1000px 800px at 30% 100%, var(--bg1), transparent 60%),
+      #fff;
+      background-attachment: fixed;
+      font-family: Nunito, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+
+    /* Floating candy blobs (subtle) */
+    .floaty{position:fixed;inset:0;pointer-events:none;z-index:-1}
+    .blob{position:absolute;filter:blur(40px) saturate(120%);opacity:.35;border-radius:50%}
+    .blob.one{width:420px;height:420px;background:var(--pink);top:-80px;left:-60px;animation: drift 22s ease-in-out infinite}
+    .blob.two{width:380px;height:380px;background:var(--apricot);top:60%;left:-120px;animation: drift 28s ease-in-out infinite reverse}
+    .blob.three{width:460px;height:460px;background:var(--lilac);top:-120px;right:-120px;animation: drift 32s ease-in-out infinite}
+    @keyframes drift{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(30px,20px,0)}100%{transform:translate3d(-10px,0,0)}}
+    @media (prefers-reduced-motion: reduce){ .blob{animation:none} }
+
+    /* Header */
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.75);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .head{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .avatar{height:44px;width:44px;border-radius:14px;background:var(--grad-2);box-shadow:var(--shadow)}
+    .title{font-family:Poppins,sans-serif;font-weight:800;letter-spacing:.2px}
+    .subtle{color:var(--ink-soft)}
+    .pill{height:42px;padding:0 18px;border-radius:999px;border:0;color:#fff;font-weight:800;cursor:pointer}
+    .pill.primary{background:var(--grad-1);box-shadow:0 10px 24px rgba(255,122,182,.35)}
+    .pill.secondary{background:var(--grad-2);box-shadow:0 10px 24px rgba(176,131,255,.30)}
+    .pill:hover{opacity:.92}
+
+    /* Progress */
+    .progress{position:fixed;top:0;left:0;height:6px;width:0;background:linear-gradient(90deg,var(--pink),var(--apricot),var(--lilac));border-bottom-right-radius:6px;border-top-right-radius:6px;z-index:60}
+
     /* Layout */
-    header{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);background:rgba(10,10,15,.6);border-bottom:1px solid rgba(255,255,255,.1)}
-    .head{max-width:1100px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
-    .brand{display:flex;gap:12px;align-items:center}
-    .badge{height:32px;width:32px;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--secondary) 50%,var(--tertiary))}
-    .btn{height:40px;padding:0 14px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:var(--card);color:#fff}
-    .btn.primary{border:none;background:var(--primary);font-weight:600}
-    .btn:hover{opacity:.9;cursor:pointer}
-    .progress{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--primary),var(--secondary) 50%,var(--tertiary));box-shadow:0 0 12px rgba(255,60,172,.6);z-index:50}
-    main{max-width:1100px;margin:0 auto;padding:32px 16px}
-    .layout{display:grid;grid-template-columns:1fr;gap:24px}
-    @media(min-width:1024px){.layout{grid-template-columns:240px 1fr}}
-    aside{position:sticky;top:88px;height:calc(100vh - 88px);overflow:auto;padding-right:8px}
-    .toc .card{padding:14px}
-    .toc h5{margin:0 0 8px 0;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.12em;font-size:12px}
-    .toc a{display:block;padding:8px 10px;border-radius:10px;color:rgba(255,255,255,.9)}
-    .toc a.active,.toc a:hover{background:rgba(255,255,255,.08)}
-    .card{padding:24px}
-    .divider{height:1px;background:rgba(255,255,255,.12);margin:24px 0}
-    .section{scroll-margin-top:96px}
-    .title{font-size:28px;font-weight:800}
-    .title.sm{font-size:18px}
-    /* Toggles */
-    details{border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px;transition:all .2s}
-    details[open]{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.35)}
-    summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-weight:600;color:rgba(255,255,255,.92)}
+    main{max-width:1200px;margin:0 auto;padding:22px 16px;display:grid;gap:18px;grid-template-columns:1fr}
+    @media(min-width:1080px){ main{ grid-template-columns:270px 1fr; } }
+
+    /* Sidebar */
+    aside{position:sticky;top:84px;align-self:start;height:calc(100vh - 92px);padding-right:8px}
+    .side{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow)}
+    .me{display:flex;gap:12px;align-items:center;background:var(--grad-soft);border:1px solid var(--line);border-radius:16px;padding:12px}
+    .me .dot{height:38px;width:38px;border-radius:12px;background:var(--grad-2)}
+    nav.toc{margin-top:12px;display:flex;flex-direction:column;gap:6px;position:relative}
+    nav.toc::before{content:"";position:absolute;left:6px;top:2px;bottom:2px;width:4px;border-radius:999px;background:linear-gradient(180deg,rgba(255,122,182,.4),rgba(255,167,74,.4))}
+    nav.toc a{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 18px;border-radius:12px;color:var(--ink-soft);text-decoration:none;font-weight:800;position:relative}
+    nav.toc a.active, nav.toc a:hover{background:linear-gradient(90deg,rgba(255,122,182,.12),rgba(255,167,74,.12));color:var(--ink)}
+    .toc .badge{margin-left:auto;font-size:11px;padding:4px 8px;border-radius:999px;background:rgba(176,131,255,.15);color:#5b3aa5}
+
+    /* Content card */
+    .card{background:var(--card);padding:20px;border-radius:26px;box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden}
+    .section{scroll-margin-top:110px}
+    h2.section-title{font-family:Poppins,sans-serif;font-size:34px;line-height:1.1;margin:0 0 12px 0}
+    .spark{height:8px;background:linear-gradient(90deg,var(--pink),var(--apricot),var(--lilac));border-radius:999px;box-shadow:0 6px 20px rgba(255,122,182,.35),0 -2px 10px rgba(176,131,255,.20)}
+    .divider{height:1px;background:linear-gradient(90deg,var(--line),transparent);margin:24px 0}
+
+    /* Bubbly accordions */
+    details.bubble{border:1px solid var(--line);border-radius:18px;padding:12px;background:var(--grad-soft);transition:box-shadow .2s}
+    details.bubble[open]{box-shadow:var(--shadow);outline:var(--ring)}
+    summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-weight:800}
     summary::-webkit-details-marker{display:none}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:linear-gradient(135deg,rgba(255,122,182,.12),rgba(176,131,255,.12));font-weight:800}
+
+    /* “Pros/Cons/Side effects” chips */
+    .chip{display:inline-flex;gap:8px;align-items:center;font-weight:800;border-radius:999px;padding:6px 10px}
+    .chip.pro{background:rgba(110,217,195,.18);color:#0e6a5d}
+    .chip.con{background:rgba(255,167,74,.18);color:#7a3b00}
+    .chip.se{background:rgba(255,122,182,.18);color:#7b204c}
+
     /* Inputs */
-    .field{display:block;width:100%;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:var(--card);color:#fff;padding:0 12px}
+    label{font-size:12px;color:var(--ink-soft);font-weight:800}
+    .field{display:block;width:100%;height:48px;border-radius:14px;border:1px solid var(--line);background:#fff;padding:0 12px;font-weight:800;box-shadow:inset 0 1px 0 rgba(0,0,0,.04)}
     textarea.field{height:auto;padding:12px}
-    label{font-size:12px;color:rgba(255,255,255,.7)}
-    /* Modal */
-    .modal-wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;z-index:60}
-    .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px)}
-    .modal{position:relative;max-width:620px;width:100%}
+
+    /* Buttons utility */
+    .btn{height:42px;display:inline-flex;align-items:center;gap:10px;padding:0 16px;border-radius:14px;border:1px solid var(--line);background:#fff;font-weight:800;cursor:pointer}
+    .btn:hover{box-shadow:0 8px 20px rgba(0,0,0,.08)}
+
+    /* Disclaimer modal */
+    .modal-wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:80}
+    .backdrop{position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,122,182,.25),rgba(176,131,255,.25));backdrop-filter:blur(6px)}
+    .modal{position:relative;background:var(--card);border-radius:22px;padding:20px;max-width:760px;width:calc(100% - 28px);box-shadow:var(--shadow);border:1px solid var(--line)}
     .hidden{display:none !important}
-    /* Gated */
-    .gate{position:relative;border-radius:16px;overflow:hidden}
-    .gate .blur{position:absolute;inset:0;background:rgba(0,0,0,.2);backdrop-filter:blur(6px);pointer-events:none}
-    /* Scrollbar */
-    ::-webkit-scrollbar{height:8px;width:10px}
-    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--primary),var(--secondary),var(--tertiary));border-radius:999px}
-    /* Small utils */
-    .muted{color:rgba(255,255,255,.7)}
-    .grid{display:grid;gap:16px}
-    @media(min-width:768px){.grid.cols-2{grid-template-columns:1fr 1fr}}
+
+    /* Gate */
+    .gate{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#fff,rgba(176,131,255,.10));border:1px solid var(--line);padding:16px}
+    .gate .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.92));backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center}
+
+    /* Grid helpers */
+    .grid{display:grid;gap:14px}
+    @media(min-width:880px){ .col-2{grid-template-columns:1fr 1fr} }
+
+    /* Toast (for copy/favorite actions) */
+    .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--grad-1);color:#fff;padding:10px 14px;border-radius:999px;box-shadow:var(--shadow);font-weight:800;opacity:0;pointer-events:none;transition:opacity .2s, transform .2s;z-index:90}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(-8px)}
+
     /* Print */
     @media print{
-      header,aside,.progress,#get-access{display:none !important}
-      .glass,.glass-strong{background:#fff !important;border:1px solid #ccc !important}
-      body{background:#fff;color:#000}
-      a{text-decoration:none;color:#000}
+      header,aside,.progress,#get-access{display:none!important}
+      body{background:#fff}
+      .card,.side{box-shadow:none;border:1px solid #ddd}
+      h2.section-title{page-break-after:avoid}
+      section{page-break-inside:avoid}
     }
   </style>
+
+  <!-- Open Graph for shares -->
+  <meta property="og:title" content="Peptide Prep — Educational eBook"/>
+  <meta property="og:description" content="Colorful, bubbly, animated educational guide. No medical advice."/>
+  <meta property="og:type" content="website"/>
 </head>
 <body>
-  <div class="aurora"><div class="layer"></div><div class="layer"></div><div class="layer"></div></div>
+  <!-- floating candy -->
+  <div class="floaty" aria-hidden="true">
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+    <div class="blob three"></div>
+  </div>
+
   <div id="progress" class="progress"></div>
 
   <header>
     <div class="head">
       <div class="brand">
-        <div class="badge"></div>
+        <div class="avatar"></div>
         <div>
-          <div style="font-size:12px;letter-spacing:.14em;color:rgba(255,255,255,.6);text-transform:uppercase">Educational eBook</div>
-          <div class="display" style="font-weight:800">Peptides 101 (Interactive)</div>
+          <div class="title">Peptide Prep</div>
+          <small class="subtle">Educational • bubbly • animated</small>
         </div>
       </div>
-      <div style="display:flex;gap:8px">
-        <button id="exportBtn" class="btn">Export PDF</button>
-        <a href="#access" class="btn primary" id="get-access">Get Access</a>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="pill primary" id="printBtn">Export PDF</button>
+        <a href="#access" class="pill secondary" id="get-access">Get Access</a>
       </div>
     </div>
   </header>
 
   <main>
-    <div class="layout">
-      <aside class="toc">
-        <div class="glass card shadow">
-          <h5>Chapters</h5>
-          <nav id="toc">
-            <a href="#intro">Welcome</a>
-            <a href="#how-to-use">How to Use This eBook</a>
-            <a href="#safety">Safety, Legal, Compliance</a>
-            <a href="#foundations">Peptide Foundations</a>
-            <a href="#storage">Storage & Quality</a>
-            <a href="#education-tools">Education Tools</a>
-            <a href="#anatomy">Anatomy & Visuals (Gated)</a>
-            <a href="#faq">FAQ</a>
-            <a href="#access">Access & Downloads</a>
-          </nav>
+    <!-- Sidebar -->
+    <aside>
+      <div class="side">
+        <div class="me">
+          <div class="dot"></div>
+          <div>
+            <strong>Ashley</strong>
+            <small class="subtle">Biohacker & Dancer</small>
+          </div>
         </div>
-      </aside>
+        <nav class="toc" id="toc">
+          <a href="#welcome">Welcome</a>
+          <a href="#fundamentals">Ch 1: Fundamentals</a>
+          <a href="#storage">Ch 2: Storage</a>
+          <a href="#math">Ch 3: Math & Units (Edu)</a>
+          <a href="#anatomy">Ch 4: Anatomy (Gated)</a>
+          <a href="#encyclopedia">Ch 5: Encyclopedia</a>
+          <a href="#tools">Ch 6: Tools</a>
+          <a href="#faq">FAQ</a>
+          <a href="#access">Access</a>
+        </nav>
+      </div>
+    </aside>
 
-      <div class="glass card shadow">
-        <div style="font-size:12px;letter-spacing:.14em;color:rgba(255,255,255,.6);text-transform:uppercase">Last read</div>
-        <a id="jumpLink" href="#intro" style="display:inline-block;margin-top:4px;text-decoration:underline;text-decoration-style:dotted">Jump to: Welcome</a>
+    <!-- Content -->
+    <div class="card">
+      <!-- Welcome -->
+      <section id="welcome" class="section">
+        <h2 class="section-title">Hello, beautiful souls! ✨</h2>
+        <div class="spark"></div>
+        <p class="subtle" style="margin-top:12px">
+          Bright, friendly, and easy to explore. Educational only — not medical advice. Always consult a licensed professional for health decisions.
+        </p>
+      </section>
 
-        <div class="divider"></div>
+      <div class="divider"></div>
 
-        <section id="intro" class="section">
-          <h2 class="display title">Welcome ✨</h2>
-          <p class="muted" style="margin-top:12px">
-            This interactive eBook is designed to be beautiful, educational, and easy to navigate.
-            It does not provide medical advice. Always consult a licensed clinician for health decisions.
-          </p>
-        </section>
-
-        <div class="divider"></div>
-
-        <section id="how-to-use" class="section">
-          <h2 class="display title">How to Use This eBook</h2>
-          <ul class="muted" style="margin-top:12px;line-height:1.7">
-            <li>Open chapter toggles to skim or deep-dive.</li>
-            <li>Use the sticky table of contents to jump around.</li>
-            <li>Export to PDF for offline reading.</li>
-            <li>Gated visuals are for education only, not instructions.</li>
+      <!-- Fundamentals -->
+      <section id="fundamentals" class="section">
+        <h2 class="section-title">Ch 1: Fundamentals</h2>
+        <div class="spark"></div>
+        <details class="bubble" style="margin-top:12px">
+          <summary><span class="badge">💡 What are peptides?</span></summary>
+          <div style="margin-top:10px" class="subtle">
+            Short amino‑acid chains studied for signaling roles in biological systems. High‑level overview for education, not clinical directives.
+          </div>
+        </details>
+        <details class="bubble" style="margin-top:12px">
+          <summary><span class="badge">🧠 Key concepts</span></summary>
+          <ul style="margin-top:10px" class="subtle">
+            <li>Structure‑function depends on sequence and conformation.</li>
+            <li>Stability can be affected by temperature, pH, and light.</li>
+            <li>Follow laws/regulations; consult qualified professionals.</li>
           </ul>
-        </section>
+        </details>
+      </section>
 
-        <div class="divider"></div>
+      <div class="divider"></div>
 
-        <section id="safety" class="section">
-          <h2 class="display title">Safety, Legal, Compliance</h2>
-          <details open style="margin-top:12px">
-            <summary>Important: No Medical Advice</summary>
-            <div class="muted" style="margin-top:8px">
-              This content is educational and general in nature. It does not include dosing protocols or guidance on administration.
-              Please consult a qualified professional.
+      <!-- Storage -->
+      <section id="storage" class="section">
+        <h2 class="section-title">Ch 2: Storage</h2>
+        <div class="spark"></div>
+        <details class="bubble" style="margin-top:12px">
+          <summary><span class="badge">🗂️ General considerations</span></summary>
+          <ul style="margin-top:10px" class="subtle">
+            <li>Temperature and light can influence stability for some materials.</li>
+            <li>Work with reputable, compliant suppliers when applicable.</li>
+            <li>Keep a simple log (lot, date, notes).</li>
+          </ul>
+        </details>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Math & Units (Educational only) -->
+      <section id="math" class="section">
+        <h2 class="section-title">Ch 3: Math & Units (Educational only)</h2>
+        <div class="spark"></div>
+        <p class="subtle" style="margin-top:10px">
+          Conceptual unit conversions to understand scale. Not dosing advice.
+        </p>
+        <div class="grid col-2" style="margin-top:12px">
+          <div class="bubble" style="padding:14px">
+            <div class="badge">📏 Unit Converter (mg ⇄ µg)</div>
+            <div style="margin-top:12px">
+              <label>Milligrams (mg)</label>
+              <input id="mg" class="field" inputmode="decimal" placeholder="e.g., 1" value="1">
             </div>
-          </details>
-          <details style="margin-top:12px">
-            <summary>Regulatory Landscape</summary>
-            <div class="muted" style="margin-top:8px">
-              Many peptides are not approved for human use by regulatory agencies. Availability and legality can vary by region.
-              Avoid claims about diagnosis, treatment, cure, or prevention to comply with marketplace policies.
-            </div>
-          </details>
-          <details style="margin-top:12px">
-            <summary>Marketplace Compliance Tips</summary>
-            <ul class="muted" style="margin-top:8px;line-height:1.7">
-              <li>Position as an educational guide; avoid medical claims.</li>
-              <li>Use disclaimers on sensitive sections.</li>
-              <li>On Amazon KDP/Etsy: keep product pages free of health claims; highlight design and educational value.</li>
-            </ul>
-          </details>
-        </section>
-
-        <div class="divider"></div>
-
-        <section id="foundations" class="section">
-          <h2 class="display title">Peptide Foundations</h2>
-          <details style="margin-top:12px">
-            <summary>What Are Peptides?</summary>
-            <div class="muted" style="margin-top:8px">
-              Peptides are short amino acid chains that can act as signaling molecules in biological systems.
-              Research spans areas like cellular signaling and protein interactions. This guide focuses on concepts, not clinical directives.
-            </div>
-          </details>
-          <details style="margin-top:12px">
-            <summary>Key Concepts (High-Level)</summary>
-            <ul class="muted" style="margin-top:8px;line-height:1.7">
-              <li>Structure-function relationships depend on sequence and conformation.</li>
-              <li>Stability can be affected by temperature, pH, and light exposure.</li>
-              <li>Follow applicable laws and consult qualified professionals.</li>
-            </ul>
-          </details>
-        </section>
-
-        <div class="divider"></div>
-
-        <section id="storage" class="section">
-          <h2 class="display title">Storage & Quality</h2>
-          <details style="margin-top:12px">
-            <summary>General Considerations</summary>
-            <ul class="muted" style="margin-top:8px;line-height:1.7">
-              <li>Temperature and light sensitivity may be relevant for some materials.</li>
-              <li>Work with reputable, compliant suppliers when applicable.</li>
-              <li>Keep a simple log (lot numbers, dates, notes).</li>
-            </ul>
-          </details>
-        </section>
-
-        <div class="divider"></div>
-
-        <section id="education-tools" class="section">
-          <h2 class="display title">Education Tools (Non-medical)</h2>
-          <div class="grid cols-2" style="margin-top:12px">
-            <div class="glass card">
-              <h3 class="title sm display">Unit Converter (mg ⇄ µg)</h3>
-              <div style="margin-top:12px">
-                <label>Milligrams (mg)</label>
-                <input id="mgInput" class="field" inputmode="decimal" placeholder="e.g., 1" value="1">
-              </div>
-              <div style="margin-top:12px">
-                <label>Micrograms (µg)</label>
-                <input id="ugOutput" class="field" readonly>
-              </div>
-            </div>
-            <div class="glass card">
-              <h3 class="title sm display">Personal Notes</h3>
-              <label class="muted">Saved locally in your browser</label>
-              <textarea id="notesPad" class="field" rows="6" placeholder="Write reflections, glossary terms, or questions for your clinician…" style="margin-top:8px"></textarea>
+            <div style="margin-top:12px">
+              <label>Micrograms (µg)</label>
+              <input id="ug" class="field" readonly>
             </div>
           </div>
-        </section>
-
-        <div class="divider"></div>
-
-        <section id="anatomy" class="section">
-          <h2 class="display title">Anatomy & Visuals (Gated)</h2>
-          <div class="gate" style="margin-top:12px">
-            <div class="glass-strong card">
-              <div style="font-weight:600">Research-only content (no medical advice)</div>
-              <div class="muted" style="margin-top:6px">
-                The following section may include anatomy or research diagrams for education only—no procedural instructions.
-              </div>
-              <button id="allowGate" class="btn primary" style="margin-top:12px">Continue</button>
+          <div class="bubble" style="padding:14px">
+            <div class="badge">📝 Personal Notes</div>
+            <label class="subtle" style="display:block;margin-top:8px">Saved locally in your browser</label>
+            <textarea id="notes" class="field" rows="6" placeholder="Ideas, glossary terms, topics to ask a clinician…"></textarea>
+            <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn" id="exportCsv" type="button">Export Notes CSV</button>
+              <button class="btn" id="clearNotes" type="button">Clear Notes</button>
             </div>
-            <div id="gateBlur" class="blur"></div>
           </div>
+        </div>
+      </section>
 
-          <div id="gatedContent" class="grid cols-2" style="margin-top:16px">
-            <div class="glass card">
-              <div style="font-size:12px;letter-spacing:.14em;color:rgba(255,255,255,.6);text-transform:uppercase;margin-bottom:8px">Educational Diagram Placeholder</div>
-              <div style="aspect-ratio:4/3;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center">
-                <span class="muted" style="text-align:center;padding:0 16px">
-                  Insert licensed anatomical illustration(s) here. No procedural instructions. Label regions for general education only.
+      <div class="divider"></div>
+
+      <!-- Anatomy (Gated, conceptual only) -->
+      <section id="anatomy" class="section">
+        <h2 class="section-title">Ch 4: Anatomy (Gated, conceptual)</h2>
+        <div class="spark"></div>
+        <div class="gate" style="margin-top:12px">
+          <div class="veil" id="veil">
+            <div style="text-align:center;max-width:640px">
+              <div class="badge">🔒 Research-only content (no medical advice)</div>
+              <p class="subtle" style="margin:8px auto 0">
+                Conceptual anatomy/diagram visuals for education only — no procedural steps or injection guidance.
+              </p>
+              <button class="pill primary" id="unlock">I Understand / Continue</button>
+            </div>
+          </div>
+          <div class="grid col-2" style="margin-top:6px">
+            <div class="bubble" style="padding:14px">
+              <div class="badge">📚 Conceptual Diagram Placeholder</div>
+              <div style="margin-top:12px;aspect-ratio:4/3;border-radius:14px;background:linear-gradient(180deg,#fff,rgba(176,131,255,.10));border:1px solid var(--line);display:flex;align-items:center;justify-content:center">
+                <span class="subtle" style="padding:0 16px;text-align:center">
+                  Replace with licensed illustration(s). No “how‑to” content.
                 </span>
               </div>
             </div>
-            <div class="glass card">
-              <div style="font-size:12px;letter-spacing:.14em;color:rgba(255,255,255,.6);text-transform:uppercase;margin-bottom:8px">Context & Cautions</div>
-              <ul class="muted" style="line-height:1.7">
-                <li>Conceptual visuals only; not step-by-step instructions.</li>
-                <li>Consult a qualified professional for any clinical context.</li>
-                <li>Follow platform rules and local regulations.</li>
+            <div class="bubble" style="padding:14px">
+              <div class="badge">⚠️ Context & Cautions</div>
+              <ul class="subtle" style="margin-top:12px">
+                <li>Educational visuals only; not instructions.</li>
+                <li>Consult a qualified professional for clinical decisions.</li>
+                <li>Keep sales pages platform‑compliant (no medical claims).</li>
               </ul>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <div class="divider"></div>
+      <div class="divider"></div>
 
-        <section id="faq" class="section">
-          <h2 class="display title">FAQ</h2>
-          <details style="margin-top:12px">
-            <summary>Is this medical advice?</summary>
-            <div class="muted" style="margin-top:8px">No. This is educational content only.</div>
-          </details>
-          <details style="margin-top:12px">
-            <summary>Can I get dosing info here?</summary>
-            <div class="muted" style="margin-top:8px">No. Please speak with a licensed professional.</div>
-          </details>
-          <details style="margin-top:12px">
-            <summary>How do I export a clean PDF?</summary>
-            <div class="muted" style="margin-top:8px">Use the Export button (prints clean).</div>
-          </details>
-        </section>
+      <!-- Encyclopedia (bubbly cards + favorites) -->
+      <section id="encyclopedia" class="section">
+        <h2 class="section-title">Ch 5: Peptide Encyclopedia (Educational)</h2>
+        <div class="spark"></div>
+        <p class="subtle" style="margin-top:10px">Research‑style cards. No dosing or administration guidance.</p>
 
-        <div class="divider"></div>
-
-        <section id="access" class="section">
-          <h2 class="display title">Access & Downloads</h2>
-          <div class="grid cols-2" style="margin-top:12px">
-            <div class="glass card">
-              <h3 class="title sm display">Get the PDF + Updates</h3>
-              <p class="muted" style="margin-top:8px">Unlock the printable version and future updates. After purchase, you’ll get a download link and update emails.</p>
-              <a href="https://your-shop-link" class="btn primary" style="margin-top:12px;display:inline-flex;align-items:center;justify-content:center;height:44px">Purchase Access</a>
+        <div class="grid" id="cards" style="margin-top:12px">
+          <!-- Sample card -->
+          <article class="bubble" style="padding:14px" data-key="retatrutide">
+            <header style="display:flex;gap:10px;align-items:center;justify-content:space-between;">
+              <h3 style="font-family:Poppins,sans-serif;margin:0">Retatrutide</h3>
+              <button class="btn fav" type="button" aria-label="Add to favorites">💖 Favorite</button>
+            </header>
+            <p><strong>Function:</strong> Powerful weight‑related and metabolic regulation (investigational).</p>
+            <p><strong>Mechanism:</strong> Triple agonist for GLP‑1, GIP, and glucagon receptors.</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">
+              <span class="chip pro">✔ Pros</span>
+              <span class="chip con">⚠ Cons</span>
+              <span class="chip se">✳ Side Effects</span>
             </div>
-            <div class="glass card">
-              <h3 class="title sm display">Export</h3>
-              <p class="muted" style="margin-top:8px">For personal study use. Redistribution is not permitted.</p>
-              <button class="btn" onclick="window.print()" style="margin-top:12px">Export PDF</button>
+            <ul class="subtle" style="margin:8px 0 12px 18px">
+              <li>Body‑weight and metabolic effects reported in research contexts.</li>
+              <li>GI side effects can occur; long‑term safety still being studied.</li>
+            </ul>
+            <div class="bubble" style="padding:12px;background:linear-gradient(180deg,#fff,rgba(255,167,74,.10));margin-top:8px">
+              <strong>📊 Additional Research:</strong> See peer‑reviewed studies for details. Educational only.
             </div>
+            <div class="bubble" style="padding:12px;background:linear-gradient(180deg,#fff,rgba(255,122,182,.10));margin-top:8px">
+              <strong>💡 Fun Fact:</strong> Targets multiple receptors for next‑gen metabolic effects (investigational).
+            </div>
+            <p style="margin-top:10px"><a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">🔗 View Research (PubMed)</a></p>
+          </article>
+
+          <!-- You can duplicate <article> to add more cards, changing data-key and content -->
+        </div>
+
+        <div class="bubble" style="padding:14px;margin-top:12px">
+          <div class="badge">⭐ Favorites</div>
+          <p class="subtle" style="margin-top:8px">Cards you star will appear here (saved locally).</p>
+          <div id="favs" class="subtle" style="margin-top:8px">No favorites yet.</div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Tools -->
+      <section id="tools" class="section">
+        <h2 class="section-title">Ch 6: Tools</h2>
+        <div class="spark"></div>
+        <div class="grid col-2" style="margin-top:12px">
+          <div class="bubble" style="padding:14px">
+            <div class="badge">📄 Export PDF</div>
+            <p class="subtle" style="margin-top:8px">Print‑friendly styling included.</p>
+            <button class="pill secondary" onclick="window.print()">Export PDF</button>
           </div>
-        </section>
+          <div class="bubble" style="padding:14px">
+            <div class="badge">📬 Stay in the loop</div>
+            <p class="subtle" style="margin-top:8px">Embed your email form here (Beehiiv/ConvertKit – free tiers).</p>
+          </div>
+        </div>
+      </section>
 
-      </div>
+      <div class="divider"></div>
+
+      <!-- FAQ -->
+      <section id="faq" class="section">
+        <h2 class="section-title">FAQ</h2>
+        <div class="spark"></div>
+        <details class="bubble" style="margin-top:12px">
+          <summary>Is this medical advice?</summary>
+          <p class="subtle" style="margin-top:8px">No. This is educational content only.</p>
+        </details>
+        <details class="bubble" style="margin-top:12px">
+          <summary>Can I get dosing protocols here?</summary>
+          <p class="subtle" style="margin-top:8px">No. Please speak with a licensed professional.</p>
+        </details>
+        <details class="bubble" style="margin-top:12px">
+          <summary>How do I print to PDF?</summary>
+          <p class="subtle" style="margin-top:8px">Use the Export buttons; print styles are built in.</p>
+        </details>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Access -->
+      <section id="access" class="section">
+        <h2 class="section-title">Access & Downloads</h2>
+        <div class="spark"></div>
+        <div class="grid col-2" style="margin-top:12px">
+          <div class="bubble" style="padding:14px">
+            <div class="badge">💖 Get the PDF + Updates</div>
+            <p class="subtle" style="margin-top:8px">After purchase, you’ll get a printable PDF and update notifications.</p>
+            <a href="https://your-shop-link" class="pill primary">Purchase Access</a>
+          </div>
+          <div class="bubble" style="padding:14px">
+            <div class="badge">🔒 License</div>
+            <p class="subtle" style="margin-top:8px">For personal study. Redistribution not permitted.</p>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 
   <!-- Disclaimer Modal -->
-  <div id="disclaimer" class="modal-wrap hidden">
+  <div id="disclaimer" class="modal-wrap hidden" role="dialog" aria-modal="true" aria-labelledby="discTitle">
     <div class="backdrop"></div>
-    <div class="modal glass-strong card shadow">
-      <h2 class="display" style="font-size:28px;font-weight:800;text-align:center">Hello Beautiful Souls ✨</h2>
-      <div class="muted" style="margin-top:12px;text-align:center;line-height:1.6">
-        <p>This digital book is for educational purposes only and is not medical advice.</p>
-        <p>Any interactive tools here are learning aids only—your choices are your responsibility.</p>
-        <p style="font-size:12px;opacity:.8">By continuing, you confirm you understand and agree.</p>
-      </div>
-      <button id="acceptDisclaimer" class="btn primary" style="margin-top:16px;width:100%;height:48px;font-weight:700">I Understand / Continue</button>
+    <div class="modal">
+      <h2 id="discTitle" class="section-title" style="margin:0;text-align:center">Hello, beautiful souls ✨</h2>
+      <p class="subtle" style="text-align:center;max-width:720px;margin:8px auto 0">
+        This eBook is for educational purposes only and is not medical advice. Interactive tools are learning aids only — your choices are your responsibility.
+      </p>
+      <button class="pill primary" id="accept" style="width:100%;margin-top:12px">I Understand / Continue</button>
     </div>
   </div>
 
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite">Saved!</div>
+
   <script>
-    // Helpers
-    const $ = sel => document.querySelector(sel);
-    const $$ = sel => Array.from(document.querySelectorAll(sel));
+    // Helper shortcuts
+    const $ = (s)=>document.querySelector(s);
+    const $$ = (s)=>Array.from(document.querySelectorAll(s));
+    const toast = $('#toast');
+    function showToast(msg="Saved!"){ toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),1400); }
 
-    // Disclaimer modal
-    const disclaimer = $('#disclaimer');
-    const accepted = localStorage.getItem('disclaimerAccepted');
-    if (!accepted) { disclaimer.classList.remove('hidden'); }
-    $('#acceptDisclaimer')?.addEventListener('click', () => {
-      localStorage.setItem('disclaimerAccepted','true');
-      disclaimer.classList.add('hidden');
-    });
+    // Disclaimer
+    if(!localStorage.getItem('disclaimerAccepted')){ $('#disclaimer').classList.remove('hidden'); }
+    $('#accept')?.addEventListener('click',()=>{ localStorage.setItem('disclaimerAccepted','true'); $('#disclaimer').classList.add('hidden'); showToast('Welcome ✨'); });
 
-    // Reading progress + active TOC + last read
-    const progressBar = $('#progress');
+    // Progress + active TOC
+    const progress = $('#progress');
     const sections = $$('.section');
-    const tocLinks = $$('#toc a');
-    const jumpLink = $('#jumpLink');
-
-    function setActive(id){
-      tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+id));
-      localStorage.setItem('lastSection', id);
-      const label = (tocLinks.find(a => a.getAttribute('href')==='#'+id)?.textContent) || 'Welcome';
-      jumpLink.textContent = 'Jump to: ' + label;
-      jumpLink.setAttribute('href','#'+id);
-    }
-
+    const links = $$('#toc a');
+    function setActive(id){ links.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+id)); }
     function onScroll(){
-      // Progress
-      const st = window.scrollY;
-      const sh = document.documentElement.scrollHeight - window.innerHeight;
-      const p = Math.max(0, Math.min(1, sh ? st/sh : 0));
-      progressBar.style.width = (p*100)+'%';
-      // Active section
-      for(const s of sections){
-        const r = s.getBoundingClientRect();
-        if(r.top <= 140 && r.bottom > 140){ setActive(s.id); break; }
-      }
+      const st=window.scrollY, sh=document.documentElement.scrollHeight - innerHeight;
+      progress.style.width = (Math.max(0,Math.min(1, sh?st/sh:0))*100)+'%';
+      for(const s of sections){ const r=s.getBoundingClientRect(); if(r.top<=120 && r.bottom>120){ setActive(s.id); break; } }
     }
-    document.addEventListener('scroll', onScroll, { passive:true });
-    onScroll();
-    // Jump to last read on load (link only)
-    const last = localStorage.getItem('lastSection');
-    if(last && document.getElementById(last)){ setActive(last); }
+    document.addEventListener('scroll',onScroll,{passive:true}); onScroll();
 
-    // Export button
-    $('#exportBtn')?.addEventListener('click', () => window.print());
+    // Smooth scroll
+    links.forEach(a=>a.addEventListener('click',e=>{
+      const id=a.getAttribute('href').slice(1), el=document.getElementById(id);
+      if(el){ e.preventDefault(); window.scrollTo({top:el.offsetTop-80,behavior:'smooth'}); }
+    }));
+
+    // Print
+    $('#printBtn')?.addEventListener('click',()=>window.print());
 
     // Unit converter
-    function updateConverter(){
-      const val = parseFloat($('#mgInput').value);
-      $('#ugOutput').value = isNaN(val) ? '' : String(val * 1000);
+    function convert(){ const mg=parseFloat($('#mg').value); $('#ug').value = isNaN(mg)?'':String(mg*1000); }
+    $('#mg')?.addEventListener('input',convert); convert();
+
+    // Notes save + CSV export + clear
+    const notesEl=$('#notes'); notesEl.value = localStorage.getItem('notes') || '';
+    notesEl.addEventListener('input',()=>{ localStorage.setItem('notes',notesEl.value); });
+    $('#exportCsv')?.addEventListener('click',()=>{
+      const rows=[['notes'],[notesEl.value.replace(/\n/g,' ')]];
+      const csv=rows.map(r=>r.map(c=>`"${(c||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+      const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='notes.csv'; a.click(); showToast('Exported notes.csv');
+    });
+    $('#clearNotes')?.addEventListener('click',()=>{ notesEl.value=''; localStorage.removeItem('notes'); showToast('Notes cleared'); });
+
+    // Gated anatomy
+    const veil=$('#veil');
+    $('#unlock')?.addEventListener('click',()=>{ localStorage.setItem('sensitiveAllowed','true'); veil?.classList.add('hidden'); showToast('Gated section unlocked'); });
+    if(localStorage.getItem('sensitiveAllowed')==='true'){ veil?.classList.add('hidden'); }
+
+    // Favorites (cards)
+    const favsBox = $('#favs');
+    const cards = $$('#cards article');
+    const favKey='favCards';
+    function loadFavs(){ try{ return JSON.parse(localStorage.getItem(favKey)||'[]'); }catch{return [];} }
+    function saveFavs(arr){ localStorage.setItem(favKey, JSON.stringify(arr)); }
+    function renderFavs(){
+      const favs=loadFavs();
+      if(!favs.length){ favsBox.textContent='No favorites yet.'; return; }
+      favsBox.innerHTML = favs.map(k=>`<span class="chip pro" style="margin-right:8px">${k}</span>`).join('');
     }
-    $('#mgInput')?.addEventListener('input', updateConverter);
-    updateConverter();
-
-    // Notes pad
-    const notes = $('#notesPad');
-    notes.value = localStorage.getItem('notesPad') || '';
-    notes.addEventListener('input', () => localStorage.setItem('notesPad', notes.value));
-
-    // Sensitive gate
-    const gateBlur = $('#gateBlur');
-    const allowBtn = $('#allowGate');
-    const gatedContent = $('#gatedContent');
-    function refreshGate(){
-      if(localStorage.getItem('sensitiveAllowed') === 'true'){
-        gateBlur.classList.add('hidden');
-        allowBtn.parentElement.classList.add('hidden');
-        gatedContent.style.pointerEvents = 'auto';
-        gatedContent.style.opacity = '1';
-      } else {
-        gateBlur.classList.remove('hidden');
-        allowBtn.parentElement.classList.remove('hidden');
-        gatedContent.style.pointerEvents = 'none';
-        gatedContent.style.opacity = '.6';
-      }
-    }
-    allowBtn.addEventListener('click', ()=>{ localStorage.setItem('sensitiveAllowed','true'); refreshGate(); });
-    refreshGate();
-
-    // Smooth scroll for TOC (optional)
-    tocLinks.forEach(a=>{
-      a.addEventListener('click', e=>{
-        const id = a.getAttribute('href').slice(1);
-        const el = document.getElementById(id);
-        if(el){
-          e.preventDefault();
-          window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
-        }
+    cards.forEach(card=>{
+      const key=card.dataset.key;
+      const btn=card.querySelector('.fav');
+      btn?.addEventListener('click',()=>{
+        const favs=loadFavs();
+        const idx=favs.indexOf(key);
+        if(idx>-1){ favs.splice(idx,1); btn.textContent='💖 Favorite'; showToast('Removed from favorites'); }
+        else { favs.push(key); btn.textContent='💖 Favorited'; showToast('Added to favorites'); }
+        saveFavs(favs); renderFavs();
       });
     });
+    // Init fav buttons state
+    (function initFavs(){
+      const favs=loadFavs();
+      cards.forEach(card=>{
+        const key=card.dataset.key;
+        const btn=card.querySelector('.fav');
+        if(favs.includes(key)) btn.textContent='💖 Favorited';
+      });
+      renderFavs();
+    })();
 
-    // Optional: Google Analytics (free)
-    // Add GA4 here if you want analytics:
-    // window.dataLayer = window.dataLayer || [];
-    // function gtag(){dataLayer.push(arguments);}
-    // gtag('js', new Date());
-    // gtag('config', 'G-XXXXXXX');
+    // Accessibility: reduce motion
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.body.classList.add('reduce-motion');
+    }
+
+    // Optional: Google Analytics (free) — replace G-XXXX if you want analytics
+    // (Uncomment to enable)
+    // (function(){
+    //   var s1=document.createElement('script'); s1.async=true; s1.src='https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX';
+    //   document.head.appendChild(s1);
+    //   window.dataLayer = window.dataLayer || [];
+    //   function gtag(){dataLayer.push(arguments);}
+    //   window.gtag=gtag; gtag('js', new Date()); gtag('config', 'G-XXXXXXX');
+    // })();
   </script>
 </body>
 </html>
